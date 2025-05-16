@@ -43,8 +43,8 @@
 
     // Prepare download link
     const dataURL = canvas.toDataURL('image/png');
-    download.href       = dataURL;
-    download.download   = 'malcolm_x_100.png';
+    download.href         = dataURL;
+    download.download     = 'malcolm_x_100.png';
     download.style.display = 'inline-block';
   });
 })();

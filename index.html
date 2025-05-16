@@ -39,12 +39,13 @@
       width: 100%; height: 100%;
       object-fit: cover;
     }
-    #stamp {
+    /* Full-canvas overlay */
+    #overlay {
       position: absolute;
-      bottom: 1%; right: 1%;
-      width: 22%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
       pointer-events: none;
-      mix-blend-mode: lighten;
     }
     #controls {
       display: flex;
@@ -93,7 +94,8 @@
 
   <div class="camera-container">
     <video id="video" autoplay playsinline muted></video>
-    <img id="stamp" src="seal.png" alt="Centennial Seal" />
+    <!-- full-canvas overlay preview -->
+    <img id="overlay" src="overlay.png" alt="Celebrate the visionary" />
     <canvas id="canvas" style="display:none;"></canvas>
   </div>
 

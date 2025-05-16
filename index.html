@@ -11,6 +11,13 @@
       background: #111;
       color: #fff;
     }
+
+    /* container holds video + overlay */
+    .camera-container {
+      position: relative;
+      display: inline-block;
+    }
+
     video, canvas {
       max-width: 100%;
       width: 100%;
@@ -18,6 +25,16 @@
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
+
+    /* your stamp overlay */
+    #stamp {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 20%;
+      pointer-events: none;
+    }
+
     #controls {
       margin: 1em;
     }
@@ -33,20 +50,21 @@
 <body>
   <h1>Malcolm X 100th Birthday Stamp</h1>
 
-  <!-- live camera preview -->
-  <video id="video" autoplay playsinline></video>
+  <div class="camera-container">
+    <!-- live camera preview -->
+    <video id="video" autoplay playsinline></video>
+    <!-- always-on stamp -->
+    <img id="stamp" src="seal.png" alt="Centennial Seal">
+    <!-- captured photo will replace video here -->
+    <canvas id="canvas" style="display:none;"></canvas>
+  </div>
 
   <div id="controls">
     <button id="capture-btn">Capture Photo</button>
   </div>
 
-  <!-- hidden until you snap -->
-  <canvas id="canvas" style="display:none;"></canvas>
-  <p>
-    <a id="download" style="display:none;">📥 Download Your Photo</a>
-  </p>
+  <p><a id="download" style="display:none;">📥 Download Your Photo</a></p>
 
-  <!-- link to our script -->
   <script src="filter.js"></script>
 </body>
 </html>

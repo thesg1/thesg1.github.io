@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Malcolm X 100th Birthday Filter</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      text-align: center;
+      background: #111;
+      color: #fff;
+    }
+    video, canvas {
+      max-width: 100%;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    #controls {
+      margin: 1em;
+    }
+    button {
+      padding: .5em 1em;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Malcolm X 100th Birthday Stamp</h1>
+
+  <!-- live camera preview -->
+  <video id="video" autoplay playsinline></video>
+
+  <div id="controls">
+    <button id="capture-btn">Capture Photo</button>
+  </div>
+
+  <!-- hidden until you snap -->
+  <canvas id="canvas" style="display:none;"></canvas>
+  <p>
+    <a id="download" style="display:none;">📥 Download Your Photo</a>
+  </p>
+
+  <!-- link to our script -->
+  <script src="filter.js"></script>
+</body>
+</html>

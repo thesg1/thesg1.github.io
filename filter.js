@@ -5,19 +5,17 @@
   const capture  = document.getElementById('capture-btn');
   const flipBtn  = document.getElementById('flip-btn');
   const download = document.getElementById('download');
-  const stampImg = document.getElementById('stamp');
-  const seal     = new Image();
-  seal.src       = 'seal.png';
+  const overlayEl= document.getElementById('overlay');
 
-  let currentFacing = 'user'; // start with front camera
+  // Load overlay image for canvas draw
+  const overlayImg = new Image();
+  overlayImg.src   = 'overlay.png';
+
+  let currentFacing = 'user';
   let streamRef     = null;
 
-  // function to start camera with given facingMode
   async function startCamera(facingMode) {
-    if (streamRef) {
-      // stop all tracks of existing stream
-      streamRef.getTracks().forEach(t => t.stop());
-    }
+    if (streamRef) streamRef.getTracks().forEach(t => t.stop());
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode }
@@ -25,46 +23,37 @@
       streamRef = stream;
       video.srcObject = stream;
     } catch (err) {
-      alert('Please allow camera access to use this filter.');
+      alert('Please allow camera access.');
       console.error(err);
     }
   }
 
-  // initialize front camera
   await startCamera(currentFacing);
 
-  // flip button toggles facingMode and restarts camera
   flipBtn.addEventListener('click', async () => {
     currentFacing = currentFacing === 'user' ? 'environment' : 'user';
     await startCamera(currentFacing);
   });
 
-  // capture button draws both video + seal into canvas
   capture.addEventListener('click', () => {
-    const w = video.videoWidth;
-    const h = video.videoHeight;
+    const w = video.videoWidth, h = video.videoHeight;
     canvas.width  = w;
     canvas.height = h;
     const ctx = canvas.getContext('2d');
 
-    // draw live frame
+    // Draw live video
     ctx.drawImage(video, 0, 0, w, h);
-    // draw seal
-    const sealW = w * 0.22;
-    const sealH = sealW * (seal.height / seal.width);
-    const x     = w - sealW - 10;
-    const y     = h - sealH - 10;
-    ctx.drawImage(seal, x, y, sealW, sealH);
+    // Draw overlay stretched to full canvas
+    ctx.drawImage(overlayImg, 0, 0, w, h);
 
-    // hide live view
-    video.style.display    = 'none';
-    stampImg.style.display = 'none';
-    flipBtn.style.display  = 'none';
-    capture.style.display  = 'none';
-    // show result
-    canvas.style.display = 'block';
+    // Hide live preview elements
+    video.style.display   = 'none';
+    overlayEl.style.display= 'none';
+    flipBtn.style.display = 'none';
+    capture.style.display = 'none';
 
-    // setup download
+    // Show canvas & download link
+    canvas.style.display  = 'block';
     const dataURL = canvas.toDataURL('image/png');
     download.href       = dataURL;
     download.download   = 'malcolm_x_100.png';

@@ -9,7 +9,7 @@
 
   // Load overlay image for final canvas draw
   const overlayImg = new Image();
-  overlayImg.src   = 'overlay.png';
+  overlayImg.src   = 'overlay2.png';
 
   let currentFacing = 'user';
   let streamRef     = null;
@@ -54,16 +54,16 @@
     ctx.drawImage(overlayImg, 0, 0, w, h);
 
     // Hide live preview elements
-    video.style.display    = 'none';
+    video.style.display     = 'none';
     overlayEl.style.display = 'none';
     flipBtn.style.display   = 'none';
     capture.style.display   = 'none';
 
     // Show result canvas and download link
-    canvas.style.display   = 'block';
+    canvas.style.display    = 'block';
     const dataURL = canvas.toDataURL('image/png');
-    download.href         = dataURL;
-    download.download     = 'malcolm_x_100.png';
-    download.style.display = 'inline-block';
+    download.href           = dataURL;
+    download.download       = 'malcolm_x_100.png';
+    download.style.display  = 'inline-block';
   });
 })();

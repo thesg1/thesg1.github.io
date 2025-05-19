@@ -106,18 +106,23 @@
     a#download:hover {
       background: #fff;
     }
-    /* Retake button shares control styles */
     #retake-btn {
       display: none;
       margin-top: .5rem;
     }
-    /* Footer caption */
+    /* Footer caption and logo */
     #footer {
       margin-top: 2rem;
       text-align: center;
       font-size: 0.75rem;
       color: #888;
       line-height: 1.2;
+    }
+    #logo-link img {
+      display: block;
+      margin: 0.5rem auto 0;
+      max-width: 200px;
+      height: auto;
     }
   </style>
 </head>
@@ -143,6 +148,9 @@
   <div id="footer">
     <p>Presented by CMG Worldwide</p>
     <p>All Rights Reserved</p>
+    <a id="logo-link" href="https://www.cmgworldwide.com/" target="_blank" rel="noopener">
+      <img src="cmg_logo.png" alt="CMG Worldwide Logo" />
+    </a>
   </div>
 
   <script src="filter.js"></script>

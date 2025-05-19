@@ -8,9 +8,16 @@
         download  = document.getElementById('download'),
         retakeBtn = document.getElementById('retake-btn'),
         prevBtn   = document.getElementById('prev-btn'),
-        nextBtn   = document.getElementById('next-btn');
+        nextBtn   = document.getElementById('next-btn'),
+        canvas    = document.getElementById('canvas');
 
+  // Preload overlay images
   const overlays = ['overlay1.png','overlay2.png'];
+  const overlayImgs = overlays.map(src => {
+    const img = new Image();
+    img.src = src;
+    return img;
+  });
   let currentIndex = 0;
 
   // For drag + pinch
@@ -34,7 +41,7 @@
   prevBtn.onclick = () => { currentIndex = (currentIndex+overlays.length-1)%overlays.length; updatePreview(); };
   nextBtn.onclick = () => { currentIndex = (currentIndex+1)%overlays.length; updatePreview(); };
 
-  // Camera setup omitted for brevity—same as before
+  // Camera setup
   let streamRef, currentFacing='user';
   async function startCamera(f) {
     if(streamRef) streamRef.getTracks().forEach(t=>t.stop());
@@ -85,7 +92,6 @@
   });
 
   // Capture
-  const canvas = document.getElementById('canvas');
   capture.onclick = () => {
     const w=video.videoWidth, h=video.videoHeight, ctx=canvas.getContext('2d');
     canvas.width=w; canvas.height=h;
@@ -119,4 +125,27 @@
       el.style.display = el.classList.contains('nav-arrow')?'flex':'inline-flex'
     );
   };
+
+  // Optional: Web Share API for mobile sharing
+  download.addEventListener('click', async (e) => {
+    if (navigator.canShare && canvas.toBlob) {
+      e.preventDefault();
+      canvas.toBlob(async (blob) => {
+        const file = new File([blob], "malcolm-x-filter.png", { type: "image/png" });
+        try {
+          await navigator.share({
+            files: [file],
+            title: "Malcolm X Centennial Stamp",
+            text: "Check out my photo!",
+          });
+        } catch (err) {
+          // fallback to download if share fails
+          window.location.href = download.href;
+        }
+      });
+    }
+  });
+
+  // Initial preview
+  updatePreview();
 })();

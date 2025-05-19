@@ -37,8 +37,12 @@
       overlayScale = 1;
       overlayPos = {x: 0, y: 0};
       setOverlayTransform();
+      overlayEl.style.pointerEvents = 'auto';
+      overlayEl.style.touchAction = 'none';
     } else {
       overlayEl.style.transform = '';
+      overlayEl.style.pointerEvents = 'none';
+      overlayEl.style.touchAction = '';
     }
   }
 

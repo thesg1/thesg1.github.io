@@ -8,124 +8,74 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: #121212;
-      color: #ECECEC;
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      padding: 1rem;
+      display: flex; flex-direction: column; align-items: center;
+      background: #121212; color: #ECECEC;
+      font-family: 'Inter', sans-serif; min-height: 100vh; padding: 1rem;
     }
     h1 {
       font-family: 'Times New Roman', serif;
-      font-size: 2.75rem;
-      font-weight: normal;
-      letter-spacing: 2px;
-      color: #fff;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+      font-size: 2.75rem; font-weight: normal; letter-spacing: 2px;
+      color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
       margin-bottom: 2.5rem;
     }
     .camera-container {
-      position: relative;
-      width: 100%;
-      height: 60vh;
-      max-width: 800px;
-      margin-bottom: 1rem;
-      border-radius: 12px;
-      overflow: hidden;
-      background: #000;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      position: relative; width: 100%; height: 60vh; max-width: 800px;
+      margin-bottom: 1rem; border-radius: 12px; overflow: hidden;
+      background: #000; box-shadow: 0 8px 20px rgba(0,0,0,0.5);
     }
     video, canvas {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; object-fit: cover;
     }
-    /* Two overlay styles: full-screen vs small corner */
+    /* Full-screen overlay */
     #overlay.overlay-full {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      pointer-events: none;
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      pointer-events: none; z-index: 5;
     }
+    /* Medallion in corner */
     #overlay.overlay-small {
       position: absolute;
-      width: 30%;             /* increased from 22% */
-      bottom: 10px;
-      right: 10px;
-      object-fit: contain;
-      pointer-events: none;
+      width: 45%;          /* was 30%, now 45% */
+      bottom: 10px; right: 10px;
+      object-fit: contain; pointer-events: none; z-index: 5;
     }
     .nav-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255,255,255,0.8);
-      color: #121212;
-      border: none;
-      border-radius: 50%;
-      width: 2.5rem; height: 2.5rem;
-      font-size: 1.5rem;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.8); color: #121212;
+      border: none; border-radius: 50%;
+      width: 2.5rem; height: 2.5rem; font-size: 1.5rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
       z-index: 10;
     }
     #prev-btn { left: 10px; }
     #next-btn { right: 10px; }
     #controls {
-      display: flex; gap: 1rem;
-      width: 100%; max-width: 400px;
-      margin-top: 1rem;
+      display: flex; gap: 1rem; width: 100%; max-width: 400px; margin-top: 1rem;
     }
     button.control {
-      flex: 1;
-      padding: .75rem;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #121212;
-      background: #ECECEC;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: transform .1s ease, box-shadow .1s ease;
+      flex: 1; padding: .75rem; font-size: 1rem; font-weight: 600;
+      color: #121212; background: #ECECEC; border: none; border-radius: 8px;
+      cursor: pointer; transition: transform .1s ease, box-shadow .1s ease;
     }
     button.control:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
     button.control:active {
-      transform: translateY(0);
-      box-shadow: none;
+      transform: translateY(0); box-shadow: none;
     }
     a#download {
-      display: inline-block;
-      margin-top: .75rem;
-      padding: .5rem 1rem;
-      background: #ECECEC;
-      color: #121212;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: background .2s ease;
+      display: inline-block; margin-top: .75rem; padding: .5rem 1rem;
+      background: #ECECEC; color: #121212; text-decoration: none;
+      border-radius: 8px; font-weight: 600; transition: background .2s ease;
     }
     a#download:hover { background: #fff; }
     #retake-btn { display: none; margin-top: .5rem; }
-    /* Footer caption and logo */
     #footer {
-      margin-top: 2rem;
-      text-align: center;
-      font-size: 0.75rem;
-      color: #888;
-      line-height: 1.2;
+      margin-top: 2rem; text-align: center; font-size: .75rem; color: #888; line-height: 1.2;
     }
     #logo-link img {
-      display: block;
-      margin: 0.5rem auto 0;
-      max-width: 200px;
-      height: auto;
+      display: block; margin: .5rem auto 0; max-width: 200px; height: auto;
     }
   </style>
 </head>
@@ -135,7 +85,6 @@
   <div class="camera-container">
     <button id="prev-btn" class="nav-arrow">‹</button>
     <video id="video" autoplay playsinline muted></video>
-    <!-- Start with medallion in corner -->
     <img id="overlay" class="overlay-small" src="overlay1.png" alt="Medallion badge" />
     <canvas id="canvas" style="display:none;"></canvas>
     <button id="next-btn" class="nav-arrow">›</button>

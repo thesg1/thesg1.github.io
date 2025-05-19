@@ -39,7 +39,6 @@
       width: 100%; height: 100%;
       object-fit: cover;
     }
-    /* Full-canvas overlay preview */
     #overlay {
       position: absolute;
       top: 0; left: 0;
@@ -47,7 +46,6 @@
       object-fit: cover;
       pointer-events: none;
     }
-    /* Arrow buttons */
     .nav-arrow {
       position: absolute;
       top: 50%;
@@ -108,6 +106,11 @@
     a#download:hover {
       background: #fff;
     }
+    /* Retake button shares control styles */
+    #retake-btn {
+      display: none;
+      margin-top: .5rem;
+    }
     /* Footer caption */
     #footer {
       margin-top: 2rem;
@@ -134,7 +137,8 @@
     <button id="capture-btn" class="control">Capture</button>
   </div>
 
-  <a id="download" style="display:none;">Download Photo</a>
+  <a id="download" style="display:none;">Download and Share</a>
+  <button id="retake-btn" class="control">Retake</button>
 
   <div id="footer">
     <p>Presented by CMG Worldwide</p>

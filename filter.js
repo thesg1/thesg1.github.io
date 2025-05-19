@@ -10,7 +10,6 @@
         prevBtn   = document.getElementById('prev-btn'),
         nextBtn   = document.getElementById('next-btn');
 
-  // Only two overlays now
   const overlays = ['overlay1.png', 'overlay2.png'];
   let currentIndex = 0;
   const overlayImgs = overlays.map(src => { const img = new Image(); img.src = src; return img; });
@@ -33,13 +32,15 @@
   });
 
   let currentFacing = 'user', streamRef = null;
+
   async function startCamera(fm) {
     if (streamRef) streamRef.getTracks().forEach(t => t.stop());
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: fm } });
       streamRef = stream; video.srcObject = stream;
     } catch (e) {
-      alert('Please allow camera access.'); console.error(e);
+      alert('Please allow camera access.');
+      console.error(e);
     }
   }
   await startCamera(currentFacing);
@@ -55,8 +56,8 @@
     ctx.drawImage(video, 0, 0, w, h);
 
     if (currentIndex === 0) {
-      // Medallion 45% corner
-      const size = w * 0.45, x = w - size - 10, y = h - size - 10;
+      // Medallion 75% corner
+      const size = w * 0.75, x = w - size - 5, y = h - size - 5;
       ctx.drawImage(overlayImgs[0], x, y, size, size);
     } else {
       // Full-screen overlay
@@ -74,7 +75,6 @@
   });
 
   retakeBtn.addEventListener('click', () => {
-    // Reset view
     [canvas, download, retakeBtn].forEach(el => el.style.display = 'none');
     video.style.display = 'block';
     updatePreview();

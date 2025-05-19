@@ -69,7 +69,7 @@
       transform: translateY(0); box-shadow: none;
     }
     a#download {
-      display: inline-block; margin-top: .75rem;
+      display: none; margin-top: .75rem;
       padding: .5rem 1rem; background: #ECECEC;
       color: #121212; text-decoration: none;
       border-radius: 8px; font-weight: 600;
@@ -103,8 +103,8 @@
     <button id="capture-btn" class="control">Capture</button>
   </div>
 
-  <a id="download" style="display:none;" class="control">Download and Share</a>
-  <button id="retake-btn" class="control">Retake</button>
+  <a id="download" class="control" style="display:none;" download="malcolm-x-filter.png">Download and Share</a>
+  <button id="retake-btn" class="control" style="display:none;">Retake</button>
 
   <div id="footer">
     <p>Presented by CMG Worldwide</p>

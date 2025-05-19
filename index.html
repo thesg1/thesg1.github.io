@@ -23,6 +23,7 @@
       width: 100%; height: 60vh; max-width: 800px;
       margin-bottom: 1rem; border-radius: 12px; overflow: hidden;
       background: #000; box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      touch-action: none; /* allow pinch/drag */
     }
     video, canvas {
       position: absolute; top: 0; left: 0;
@@ -35,10 +36,12 @@
     }
     #overlay.overlay-small {
       position: absolute;
+      width: 75%;        /* initial size */
       bottom: 5px; right: 5px;
       touch-action: none; cursor: grab; z-index: 5;
+      transform-origin: top left;
     }
-    #overlay.overlay-small:active { cursor: grabbing; }
+    #overlay:active { cursor: grabbing; }
     .nav-arrow {
       position: absolute; top: 50%; transform: translateY(-50%);
       background: rgba(255,255,255,0.8); color: #121212;
@@ -50,16 +53,17 @@
     #prev-btn { left: 10px; } #next-btn { right: 10px; }
     #controls {
       display: flex; gap: 1rem;
-      width: 100%; max-width: 500px; margin-top: 1rem;
+      width: 100%; max-width: 400px; margin-top: 1rem;
     }
     button.control {
-      flex: 1; padding: .75rem 1rem; font-size: 1rem;
-      font-weight: 600; color: #121212; background: #ECECEC;
+      padding: .75rem 1rem; font-size: 1rem; font-weight: 600;
+      color: #121212; background: #ECECEC;
       border: none; border-radius: 8px; cursor: pointer;
       transition: transform .1s, box-shadow .1s;
     }
     button.control:hover {
-      transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
     button.control:active {
       transform: translateY(0); box-shadow: none;
@@ -72,9 +76,7 @@
       transition: background .2s;
     }
     a#download:hover { background: #fff; }
-    #retake-btn { display: none; }
-    /* scale buttons only show for template1 */
-    .scale-btn { display: none; width: 3rem; }
+    button#retake-btn { display: none; }
     #footer {
       margin-top: 2rem; text-align: center;
       font-size: .75rem; color: #888; line-height: 1.2;
@@ -99,11 +101,9 @@
   <div id="controls">
     <button id="flip-btn" class="control">Flip Camera</button>
     <button id="capture-btn" class="control">Capture</button>
-    <button id="scale-down" class="control scale-btn">–</button>
-    <button id="scale-up" class="control scale-btn">+</button>
   </div>
 
-  <a id="download" style="display:none;">Download and Share</a>
+  <a id="download" style="display:none;" class="control">Download and Share</a>
   <button id="retake-btn" class="control">Retake</button>
 
   <div id="footer">

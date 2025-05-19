@@ -8,7 +8,8 @@
         retakeBtn = document.getElementById('retake-btn'),
         overlayEl = document.getElementById('overlay'),
         prevBtn   = document.getElementById('prev-btn'),
-        nextBtn   = document.getElementById('next-btn');
+        nextBtn   = document.getElementById('next-btn'),
+        container = document.querySelector('.camera-container');
 
   const overlays = ['overlay1.png', 'overlay2.png'];
   let currentIndex = 0;
@@ -46,6 +47,16 @@
     }
   }
 
+  // Dynamically set container height to match video aspect ratio
+  function setContainerAspect() {
+    // Wait for video metadata to load
+    video.addEventListener('loadedmetadata', () => {
+      const aspect = video.videoWidth / video.videoHeight;
+      const width = container.offsetWidth;
+      container.style.height = (width / aspect) + 'px';
+    }, { once: true });
+  }
+
   updatePreview();
 
   prevBtn.addEventListener('click', () => {
@@ -70,10 +81,12 @@
     }
   }
   await startCamera(currentFacing);
+  setContainerAspect();
 
   flipBtn.addEventListener('click', async () => {
     currentFacing = currentFacing === 'user' ? 'environment' : 'user';
     await startCamera(currentFacing);
+    setContainerAspect();
   });
 
   // --- Pointer events for drag and pinch ---
@@ -140,7 +153,6 @@
 
     if (currentIndex === 0) {
       // Medallion: use overlayPos and overlayScale
-      const container = document.querySelector('.camera-container');
       const cr = container.getBoundingClientRect();
       const or = overlayEl.getBoundingClientRect();
       const scaleX = w / cr.width, scaleY = h / cr.height;

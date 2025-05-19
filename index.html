@@ -53,7 +53,7 @@
     }
     #overlay.overlay-small {
       position: absolute;
-      width: 22%;
+      width: 30%;             /* increased from 22% */
       bottom: 10px;
       right: 10px;
       object-fit: contain;
@@ -67,22 +67,17 @@
       color: #121212;
       border: none;
       border-radius: 50%;
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 2.5rem; height: 2.5rem;
       font-size: 1.5rem;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       z-index: 10;
     }
     #prev-btn { left: 10px; }
     #next-btn { right: 10px; }
     #controls {
-      display: flex;
-      gap: 1rem;
-      width: 100%;
-      max-width: 400px;
+      display: flex; gap: 1rem;
+      width: 100%; max-width: 400px;
       margin-top: 1rem;
     }
     button.control {
@@ -140,6 +135,7 @@
   <div class="camera-container">
     <button id="prev-btn" class="nav-arrow">‹</button>
     <video id="video" autoplay playsinline muted></video>
+    <!-- Start with medallion in corner -->
     <img id="overlay" class="overlay-small" src="overlay1.png" alt="Medallion badge" />
     <canvas id="canvas" style="display:none;"></canvas>
     <button id="next-btn" class="nav-arrow">›</button>

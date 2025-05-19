@@ -46,8 +46,9 @@
       width: 75%;                /* now 75% */
       bottom: 5px; right: 5px;   /* tighter corner */
       object-fit: contain;
-      pointer-events: none; z-index: 5;
-      /* transform-origin is not needed for free movement */
+      pointer-events: auto;      /* allow interaction for drag/pinch */
+      touch-action: none;        /* allow pinch/drag */
+      z-index: 5;
     }
     .nav-arrow {
       position: absolute; top: 50%; transform: translateY(-50%);
